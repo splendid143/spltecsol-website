@@ -1,0 +1,2364 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Splendid Technologies | Enterprise Infrastructure & Security</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --ink: #1a1a2e;
+        --deep: #f0edf8;
+        --royal: #5b2d8e;
+        --electric: #7b2d8b;
+        --steel: #4a90a4;
+        --ice: #7b2d8b;
+        --silver: #6b6880;
+        --mist: #f7f5fc;
+        --white: #ffffff;
+        --gold: #c8a84b;
+        --page-bg: #f9f7fe;
+        --card-bg: #ffffff;
+        --border: #e2d9f0;
+        --text-primary: #1a1a2e;
+        --text-secondary: #4a4760;
+        --text-muted: #7a778f;
+      }
+
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: "DM Sans", sans-serif;
+        background: var(--page-bg);
+        color: var(--text-primary);
+        overflow-x: hidden;
+      }
+
+      /* ── NAV ── */
+      header {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 999;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--border);
+        box-shadow: 0 1px 12px rgba(123, 45, 139, 0.06);
+      }
+      .nav-inner {
+        max-width: 1280px;
+        margin: auto;
+        padding: 0 40px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 72px;
+      }
+      .logo-wrap {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .logo-wrap img {
+        height: 44px;
+        width: auto;
+        display: block;
+      }
+
+      nav ul {
+        display: flex;
+        list-style: none;
+        gap: 36px;
+      }
+      nav a {
+        font-size: 13px;
+        font-weight: 500;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--text-secondary);
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+      nav a:hover {
+        color: var(--electric);
+      }
+
+      .nav-cta {
+        background: var(--electric);
+        color: #fff;
+        font-size: 13px;
+        font-weight: 600;
+        padding: 10px 22px;
+        border-radius: 3px;
+        border: none;
+        cursor: pointer;
+        letter-spacing: 0.04em;
+        font-family: "DM Sans", sans-serif;
+        transition:
+          background 0.2s,
+          transform 0.15s;
+      }
+      .nav-cta:hover {
+        background: var(--royal);
+        transform: translateY(-1px);
+      }
+
+      /* ── MODAL ── */
+      .modal-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        background: rgba(26, 26, 46, 0.55);
+        backdrop-filter: blur(8px);
+        align-items: center;
+        justify-content: center;
+      }
+      .modal-overlay.open {
+        display: flex;
+      }
+
+      .modal-box {
+        background: #ffffff;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 48px;
+        width: 90%;
+        max-width: 680px;
+        max-height: 90vh;
+        overflow-y: auto;
+        position: relative;
+        animation: modalIn 0.3s ease;
+        box-shadow: 0 20px 60px rgba(123, 45, 139, 0.15);
+      }
+      @keyframes modalIn {
+        from {
+          opacity: 0;
+          transform: translateY(24px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+
+      .modal-close {
+        position: absolute;
+        top: 20px;
+        right: 24px;
+        background: none;
+        border: none;
+        color: var(--text-muted);
+        font-size: 24px;
+        cursor: pointer;
+        transition: color 0.2s;
+      }
+      .modal-close:hover {
+        color: var(--ink);
+      }
+
+      .modal-box h2 {
+        font-family: "Syne", sans-serif;
+        font-size: 28px;
+        font-weight: 800;
+        color: var(--ink);
+        margin-bottom: 8px;
+      }
+      .modal-sub {
+        font-size: 14px;
+        color: var(--text-muted);
+        margin-bottom: 32px;
+      }
+
+      .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+      }
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .form-group.full {
+        grid-column: span 2;
+      }
+
+      .form-group label {
+        font-size: 11px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--text-muted);
+        font-weight: 600;
+      }
+      .form-group input,
+      .form-group select,
+      .form-group textarea {
+        background: var(--mist);
+        border: 1px solid var(--border);
+        border-radius: 4px;
+        padding: 12px 16px;
+        color: var(--ink);
+        font-family: "DM Sans", sans-serif;
+        font-size: 14px;
+        outline: none;
+        transition: border-color 0.2s;
+      }
+      .form-group input:focus,
+      .form-group select:focus,
+      .form-group textarea:focus {
+        border-color: var(--electric);
+        background: #fff;
+      }
+      .form-group select option {
+        background: #fff;
+        color: var(--ink);
+      }
+      .form-group textarea {
+        resize: vertical;
+        min-height: 100px;
+      }
+
+      .form-submit {
+        width: 100%;
+        margin-top: 24px;
+        background: var(--electric);
+        color: #fff;
+        padding: 14px;
+        border: none;
+        border-radius: 4px;
+        font-family: "Syne", sans-serif;
+        font-size: 15px;
+        font-weight: 700;
+        cursor: pointer;
+        letter-spacing: 0.04em;
+        transition:
+          background 0.2s,
+          transform 0.15s;
+      }
+      .form-submit:hover {
+        background: var(--royal);
+        transform: translateY(-1px);
+      }
+
+      /* ── HERO ── */
+      .hero {
+        min-height: 100vh;
+        background: linear-gradient(
+          145deg,
+          #faf8ff 0%,
+          #f0edf8 40%,
+          #e8e2f5 100%
+        );
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+      }
+      .hero-bg {
+        position: absolute;
+        inset: 0;
+        background-image: url("https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1800&q=80");
+        background-size: cover;
+        background-position: center;
+        opacity: 0.05;
+      }
+      .hero-grid {
+        position: absolute;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(123, 45, 139, 0.05) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(123, 45, 139, 0.05) 1px, transparent 1px);
+        background-size: 60px 60px;
+      }
+      .hero-glow {
+        position: absolute;
+        width: 700px;
+        height: 700px;
+        background: radial-gradient(
+          circle,
+          rgba(123, 45, 139, 0.1) 0%,
+          transparent 70%
+        );
+        top: -100px;
+        right: -150px;
+        pointer-events: none;
+      }
+      .hero-glow2 {
+        position: absolute;
+        width: 400px;
+        height: 400px;
+        background: radial-gradient(
+          circle,
+          rgba(91, 45, 142, 0.08) 0%,
+          transparent 70%
+        );
+        bottom: 0;
+        left: 200px;
+        pointer-events: none;
+      }
+      .hero-content {
+        position: relative;
+        z-index: 2;
+        max-width: 1280px;
+        margin: auto;
+        padding: 120px 40px 80px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 80px;
+        align-items: center;
+      }
+      .hero-eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 11px;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--electric);
+        font-weight: 600;
+        margin-bottom: 24px;
+      }
+      .hero-eyebrow::before {
+        content: "";
+        display: block;
+        width: 32px;
+        height: 2px;
+        background: var(--electric);
+      }
+
+      .hero h1 {
+        font-family: "Syne", sans-serif;
+        font-size: clamp(36px, 4.5vw, 58px);
+        font-weight: 800;
+        color: var(--ink);
+        line-height: 1.1;
+        margin-bottom: 24px;
+        letter-spacing: -0.01em;
+      }
+      .hero h1 em {
+        font-style: normal;
+        color: var(--electric);
+      }
+
+      .hero-desc {
+        font-size: 16px;
+        color: var(--text-secondary);
+        line-height: 1.75;
+        max-width: 520px;
+        margin-bottom: 40px;
+      }
+
+      .hero-actions {
+        display: flex;
+        gap: 14px;
+        flex-wrap: wrap;
+      }
+
+      .btn-primary {
+        background: var(--electric);
+        color: #fff;
+        padding: 14px 28px;
+        border-radius: 3px;
+        font-size: 14px;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        border: none;
+        cursor: pointer;
+        font-family: "DM Sans", sans-serif;
+        transition:
+          background 0.2s,
+          transform 0.15s;
+      }
+      .btn-primary:hover {
+        background: var(--royal);
+        transform: translateY(-2px);
+      }
+
+      .btn-outline {
+        border: 1px solid rgba(123, 45, 139, 0.35);
+        color: var(--electric);
+        padding: 14px 28px;
+        border-radius: 3px;
+        font-size: 14px;
+        font-weight: 500;
+        text-decoration: none;
+        transition:
+          border-color 0.2s,
+          background 0.2s;
+        background: rgba(123, 45, 139, 0.04);
+      }
+      .btn-outline:hover {
+        border-color: var(--electric);
+        background: rgba(123, 45, 139, 0.08);
+      }
+
+      .hero-stats {
+        display: flex;
+        gap: 40px;
+        margin-top: 56px;
+        padding-top: 40px;
+        border-top: 1px solid rgba(123, 45, 139, 0.15);
+      }
+      .stat-item h4 {
+        font-family: "Syne", sans-serif;
+        font-size: 32px;
+        font-weight: 800;
+        color: var(--ink);
+      }
+      .stat-item h4 span {
+        color: var(--electric);
+      }
+      .stat-item p {
+        font-size: 12px;
+        color: var(--text-muted);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        margin-top: 4px;
+      }
+
+      .hero-visual {
+        position: relative;
+      }
+      .hero-img-main {
+        width: 100%;
+        aspect-ratio: 4/3;
+        object-fit: cover;
+        border-radius: 6px;
+        filter: brightness(0.95) saturate(0.9);
+        border: 1px solid var(--border);
+        box-shadow: 0 16px 48px rgba(123, 45, 139, 0.12);
+      }
+      .hero-badge {
+        position: absolute;
+        bottom: -24px;
+        left: -24px;
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        padding: 18px 24px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        box-shadow: 0 8px 24px rgba(123, 45, 139, 0.1);
+      }
+      .badge-icon {
+        width: 40px;
+        height: 40px;
+        background: var(--electric);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+      }
+      .badge-text p:first-child {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--ink);
+      }
+      .badge-text p:last-child {
+        font-size: 11px;
+        color: var(--text-muted);
+        margin-top: 2px;
+      }
+
+      /* ── TRUSTED STRIP ── */
+      .trusted-strip {
+        background: #fff;
+        border-top: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
+        padding: 20px 40px;
+      }
+      .trusted-inner {
+        max-width: 1280px;
+        margin: auto;
+        display: flex;
+        align-items: center;
+        gap: 40px;
+      }
+      .trusted-label {
+        font-size: 11px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--text-muted);
+        white-space: nowrap;
+      }
+      .trusted-divider {
+        height: 1px;
+        background: var(--border);
+        flex: 1;
+      }
+      .trusted-tags {
+        display: flex;
+        gap: 28px;
+        flex-wrap: wrap;
+      }
+      .trusted-tags span {
+        font-size: 13px;
+        color: var(--text-secondary);
+        font-weight: 500;
+        letter-spacing: 0.04em;
+      }
+
+      /* ── SECTIONS COMMON ── */
+      .section {
+        padding: 100px 40px;
+      }
+      .wrap {
+        max-width: 1280px;
+        margin: auto;
+      }
+
+      .section-eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 11px;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--electric);
+        font-weight: 600;
+        margin-bottom: 16px;
+      }
+      .section-eyebrow::before {
+        content: "";
+        display: block;
+        width: 24px;
+        height: 2px;
+        background: var(--electric);
+      }
+
+      .section-title {
+        font-family: "Syne", sans-serif;
+        font-size: clamp(28px, 3.5vw, 42px);
+        font-weight: 800;
+        color: var(--ink);
+        letter-spacing: -0.01em;
+        line-height: 1.15;
+        margin-bottom: 16px;
+      }
+      .section-sub {
+        font-size: 16px;
+        color: var(--text-muted);
+        max-width: 600px;
+        line-height: 1.75;
+        margin-bottom: 56px;
+      }
+
+      /* ── SERVICES ── */
+      .services-section {
+        background: var(--page-bg);
+      }
+      .services-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1px;
+        background: var(--border);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        overflow: hidden;
+      }
+      .service-card {
+        background: #fff;
+        padding: 40px 36px;
+        transition: background 0.25s;
+      }
+      .service-card:hover {
+        background: #faf8ff;
+      }
+
+      .service-icon {
+        width: 52px;
+        height: 52px;
+        background: linear-gradient(
+          135deg,
+          rgba(123, 45, 139, 0.12),
+          rgba(91, 45, 142, 0.18)
+        );
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 22px;
+        margin-bottom: 20px;
+        border: 1px solid rgba(123, 45, 139, 0.15);
+      }
+      .service-card h3 {
+        font-family: "Syne", sans-serif;
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--ink);
+        margin-bottom: 12px;
+      }
+      .service-card p {
+        font-size: 14px;
+        color: var(--text-muted);
+        line-height: 1.7;
+      }
+      .service-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--electric);
+        margin-top: 20px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-family: "DM Sans", sans-serif;
+        transition: gap 0.2s;
+      }
+      .service-link:hover {
+        gap: 10px;
+      }
+
+      .service-bullets {
+        list-style: none;
+        margin: 16px 0 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .service-bullets li {
+        font-size: 13px;
+        color: var(--text-secondary);
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+        line-height: 1.5;
+      }
+      .service-bullets li::before {
+        content: "✓";
+        color: var(--electric);
+        font-weight: 700;
+        font-size: 12px;
+        margin-top: 1px;
+        flex-shrink: 0;
+      }
+      .service-quote-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 13px;
+        font-weight: 600;
+        color: #fff;
+        background: var(--electric);
+        border: none;
+        cursor: pointer;
+        font-family: "DM Sans", sans-serif;
+        padding: 10px 18px;
+        border-radius: 3px;
+        margin-top: 4px;
+        transition:
+          background 0.2s,
+          transform 0.15s;
+      }
+      .service-quote-btn:hover {
+        background: var(--royal);
+        transform: translateY(-1px);
+      }
+
+      /* ── PROCESS ── */
+      .process-section {
+        background: #fff;
+      }
+      .process-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        position: relative;
+      }
+      .process-grid::before {
+        content: "";
+        position: absolute;
+        top: 67px;
+        left: calc(10% + 28px);
+        right: calc(10% + 28px);
+        height: 2px;
+        background: var(--border);
+        z-index: 0;
+      }
+      .process-step {
+        text-align: center;
+        padding: 40px 20px;
+        position: relative;
+      }
+      .step-num {
+        width: 56px;
+        height: 56px;
+        background: #fff;
+        color: var(--electric);
+        font-family: "Syne", sans-serif;
+        font-size: 18px;
+        font-weight: 800;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 20px;
+        position: relative;
+        z-index: 1;
+        border: 2px solid var(--electric);
+        box-shadow: 0 0 0 4px rgba(123, 45, 139, 0.08);
+      }
+      .process-step h4 {
+        font-family: "Syne", sans-serif;
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--ink);
+        margin-bottom: 8px;
+      }
+      .process-step p {
+        font-size: 13px;
+        color: var(--text-muted);
+        line-height: 1.6;
+      }
+
+      /* ── ABOUT ── */
+      .about-section {
+        background: var(--mist);
+      }
+      .about-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 80px;
+        align-items: center;
+      }
+      .about-imgs {
+        position: relative;
+        height: 480px;
+      }
+      .about-img1 {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 72%;
+        aspect-ratio: 4/3;
+        object-fit: cover;
+        border-radius: 6px;
+        border: 1px solid var(--border);
+        box-shadow: 0 8px 32px rgba(123, 45, 139, 0.08);
+      }
+      .about-img2 {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 60%;
+        aspect-ratio: 1;
+        object-fit: cover;
+        border-radius: 6px;
+        border: 2px solid var(--electric);
+        box-shadow: 0 8px 32px rgba(123, 45, 139, 0.15);
+      }
+      .about-card {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: var(--electric);
+        border-radius: 6px;
+        padding: 16px 22px;
+        text-align: center;
+        box-shadow: 0 8px 32px rgba(123, 45, 139, 0.35);
+        z-index: 2;
+      }
+      .about-card h3 {
+        font-family: "Syne", sans-serif;
+        font-size: 28px;
+        font-weight: 800;
+        color: #fff;
+      }
+      .about-card p {
+        font-size: 11px;
+        color: rgba(255, 255, 255, 0.85);
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+      .value-list {
+        list-style: none;
+        margin: 32px 0;
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+      }
+      .value-list li {
+        display: flex;
+        align-items: flex-start;
+        gap: 14px;
+        font-size: 15px;
+        color: var(--text-secondary);
+        line-height: 1.6;
+      }
+      .check-icon {
+        width: 22px;
+        height: 22px;
+        flex-shrink: 0;
+        background: rgba(123, 45, 139, 0.1);
+        border: 1px solid rgba(123, 45, 139, 0.3);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--electric);
+        font-size: 11px;
+        margin-top: 2px;
+      }
+
+      /* ── INDUSTRIES ── */
+      .industries-section {
+        background: #fff;
+      }
+      .industries-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+      }
+      .industry-card {
+        position: relative;
+        border-radius: 6px;
+        overflow: hidden;
+        aspect-ratio: 3/4;
+        box-shadow: 0 4px 16px rgba(123, 45, 139, 0.08);
+      }
+      .industry-card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.4s ease;
+        filter: brightness(0.75) saturate(0.85);
+      }
+      .industry-card:hover img {
+        transform: scale(1.04);
+        filter: brightness(0.65) saturate(0.9);
+      }
+      .industry-label {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(
+          to top,
+          rgba(26, 10, 40, 0.92),
+          transparent
+        );
+        padding: 40px 24px 24px;
+      }
+      .industry-label h3 {
+        font-family: "Syne", sans-serif;
+        font-size: 16px;
+        font-weight: 700;
+        color: #fff;
+        margin-bottom: 4px;
+      }
+      .industry-label p {
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.7);
+      }
+      .industry-tag {
+        position: absolute;
+        top: 16px;
+        left: 16px;
+        background: var(--electric);
+        color: #fff;
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        padding: 4px 10px;
+        border-radius: 2px;
+      }
+
+      /* ── PILLARS ── */
+      .pillars-section {
+        background: var(--page-bg);
+      }
+      .pillars-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+      }
+      .pillar-block {
+        padding: 40px 32px;
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        transition:
+          box-shadow 0.2s,
+          border-color 0.2s;
+      }
+      .pillar-block:hover {
+        border-color: rgba(123, 45, 139, 0.3);
+        box-shadow: 0 8px 24px rgba(123, 45, 139, 0.08);
+      }
+      .pillar-num {
+        font-family: "Syne", sans-serif;
+        font-size: 52px;
+        font-weight: 800;
+        color: rgba(123, 45, 139, 0.12);
+        line-height: 1;
+        margin-bottom: 16px;
+      }
+      .pillar-block h3 {
+        font-family: "Syne", sans-serif;
+        font-size: 20px;
+        font-weight: 700;
+        color: var(--ink);
+        margin-bottom: 12px;
+      }
+      .pillar-block p {
+        font-size: 14px;
+        color: var(--text-muted);
+        line-height: 1.7;
+      }
+
+      /* ── CLIENTELE ── */
+      .clientele-section {
+        background: #fff;
+        padding-bottom: 100px;
+        overflow: hidden;
+      }
+
+      .clients-count-bar {
+        display: flex;
+        justify-content: center;
+        gap: 64px;
+        margin-bottom: 64px;
+      }
+      .count-item {
+        text-align: center;
+      }
+      .count-item h4 {
+        font-family: "Syne", sans-serif;
+        font-size: 36px;
+        font-weight: 800;
+        color: var(--electric);
+      }
+      .count-item p {
+        font-size: 11px;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        margin-top: 4px;
+      }
+
+      .marquee-wrapper {
+        position: relative;
+        overflow: hidden;
+      }
+      .marquee-wrapper::before,
+      .marquee-wrapper::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 140px;
+        z-index: 2;
+        pointer-events: none;
+      }
+      .marquee-wrapper::before {
+        left: 0;
+        background: linear-gradient(to right, #ffffff, transparent);
+      }
+      .marquee-wrapper::after {
+        right: 0;
+        background: linear-gradient(to left, #ffffff, transparent);
+      }
+
+      .marquee-track {
+        display: flex;
+        gap: 20px;
+        align-items: center;
+        width: max-content;
+        padding: 8px 0;
+        animation: marqueeScroll 32s linear infinite;
+      }
+      .marquee-track:hover {
+        animation-play-state: paused;
+      }
+
+      @keyframes marqueeScroll {
+        0% {
+          transform: translateX(0);
+        }
+        100% {
+          transform: translateX(-50%);
+        }
+      }
+
+      .client-logo-item {
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 18px 32px;
+        background: var(--mist);
+        border-radius: 6px;
+        border: 1px solid var(--border);
+        min-width: 160px;
+        height: 88px;
+        transition:
+          border-color 0.25s,
+          box-shadow 0.25s,
+          background 0.25s;
+      }
+      .client-logo-item:hover {
+        border-color: rgba(123, 45, 139, 0.35);
+        box-shadow: 0 4px 20px rgba(123, 45, 139, 0.08);
+        background: #fff;
+      }
+      .client-logo-item img {
+        max-height: 48px;
+        max-width: 130px;
+        object-fit: contain;
+        opacity: 0.85;
+        transition: opacity 0.3s;
+      }
+      .client-logo-item:hover img {
+        opacity: 1;
+      }
+
+      /* ── CTA ── */
+      .cta-section {
+        background: linear-gradient(
+          135deg,
+          var(--royal) 0%,
+          var(--electric) 100%
+        );
+        position: relative;
+        overflow: hidden;
+      }
+      .cta-section::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: url("https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1600&q=80");
+        background-size: cover;
+        opacity: 0.06;
+      }
+      .cta-inner {
+        position: relative;
+        z-index: 1;
+        text-align: center;
+        max-width: 780px;
+        margin: auto;
+      }
+      .cta-inner h2 {
+        font-family: "Syne", sans-serif;
+        font-size: clamp(28px, 4vw, 48px);
+        font-weight: 800;
+        color: #fff;
+        margin-bottom: 20px;
+        line-height: 1.1;
+      }
+      .cta-inner p {
+        font-size: 16px;
+        color: rgba(255, 255, 255, 0.85);
+        margin-bottom: 40px;
+      }
+      .cta-actions {
+        display: flex;
+        gap: 14px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .btn-white {
+        background: #fff;
+        color: var(--royal);
+        padding: 14px 32px;
+        border-radius: 3px;
+        font-size: 14px;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        border: none;
+        cursor: pointer;
+        font-family: "DM Sans", sans-serif;
+        transition:
+          transform 0.15s,
+          box-shadow 0.15s;
+      }
+      .btn-white:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+      }
+
+      .btn-ghost {
+        border: 2px solid rgba(255, 255, 255, 0.6);
+        color: #fff;
+        padding: 12px 30px;
+        border-radius: 3px;
+        font-size: 14px;
+        font-weight: 500;
+        text-decoration: none;
+        transition:
+          border-color 0.2s,
+          background 0.2s;
+      }
+      .btn-ghost:hover {
+        border-color: #fff;
+        background: rgba(255, 255, 255, 0.12);
+      }
+
+      /* ── FOOTER ── */
+      footer {
+        background: #1a1a2e;
+        color: rgba(255, 255, 255, 0.5);
+        padding: 72px 40px 40px;
+      }
+      .footer-grid {
+        max-width: 1280px;
+        margin: auto;
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr 1fr;
+        gap: 60px;
+        margin-bottom: 60px;
+      }
+      .footer-brand img {
+        height: 44px;
+        width: auto;
+        display: block;
+        margin-bottom: 16px;
+      }
+      .footer-desc {
+        font-size: 14px;
+        line-height: 1.7;
+        max-width: 280px;
+      }
+      .footer-col h4 {
+        font-family: "Syne", sans-serif;
+        font-size: 13px;
+        font-weight: 700;
+        color: #fff;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        margin-bottom: 20px;
+      }
+      .footer-col ul {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .footer-col a {
+        color: rgba(255, 255, 255, 0.45);
+        text-decoration: none;
+        font-size: 14px;
+        transition: color 0.2s;
+      }
+      .footer-col a:hover {
+        color: rgba(200, 162, 212, 0.9);
+      }
+      .footer-contact p {
+        font-size: 14px;
+        line-height: 1.8;
+      }
+      .footer-contact a {
+        color: rgba(200, 162, 212, 0.85);
+        text-decoration: none;
+      }
+
+      .footer-bottom {
+        max-width: 1280px;
+        margin: auto;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        padding-top: 28px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 12px;
+      }
+      .footer-certs {
+        display: flex;
+        gap: 16px;
+      }
+      .cert-pill {
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 4px 12px;
+        border-radius: 2px;
+        font-size: 11px;
+        color: rgba(255, 255, 255, 0.4);
+        letter-spacing: 0.06em;
+      }
+
+      /* ── REVEAL ── */
+      .reveal {
+        opacity: 0;
+        transform: translateY(28px);
+        transition:
+          opacity 0.65s ease,
+          transform 0.65s ease;
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: none;
+      }
+
+      .logo-tagline {
+        font-size: 9px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: rgba(123, 45, 139, 0.85);
+        font-weight: 600;
+        margin-top: 2px;
+        padding-left: 52px;
+      }
+      .footer-logo-tagline {
+        font-size: 9px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: rgba(200, 162, 212, 0.7);
+        font-weight: 500;
+        margin-top: 2px;
+        margin-bottom: 16px;
+        padding-left: 52px;
+      }
+
+      /* ── RESPONSIVE ── */
+      @media (max-width: 1024px) {
+        .hero-content,
+        .about-grid {
+          grid-template-columns: 1fr;
+        }
+        .hero-visual {
+          display: none;
+        }
+        .services-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .industries-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .pillars-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .footer-grid {
+          grid-template-columns: 1fr 1fr;
+          gap: 40px;
+        }
+        .process-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+      @media (max-width: 640px) {
+        .nav-inner {
+          padding: 0 20px;
+        }
+        nav ul,
+        .nav-cta {
+          display: none;
+        }
+        .section {
+          padding: 72px 20px;
+        }
+        .hero-content {
+          padding: 100px 20px 60px;
+        }
+        .services-grid {
+          grid-template-columns: 1fr;
+        }
+        .industries-grid {
+          grid-template-columns: 1fr;
+        }
+        .pillars-grid {
+          grid-template-columns: 1fr;
+        }
+        .process-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+        .footer-grid {
+          grid-template-columns: 1fr;
+          gap: 32px;
+        }
+        .footer-bottom {
+          flex-direction: column;
+          gap: 16px;
+          text-align: center;
+        }
+        .form-grid {
+          grid-template-columns: 1fr;
+        }
+        .form-group.full {
+          grid-column: span 1;
+        }
+        .modal-box {
+          padding: 28px 20px;
+        }
+        .clients-count-bar {
+          gap: 28px;
+          flex-wrap: wrap;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- QUOTE MODAL -->
+    <div class="modal-overlay" id="quoteModal">
+      <div class="modal-box">
+        <button class="modal-close" onclick="closeModal()">&#x2715;</button>
+
+        <!-- FORM STATE -->
+        <div id="formContent">
+          <h2>Get a Free Quote</h2>
+          <p class="modal-sub">
+            Tell us about your project and we'll get back to you within 24
+            hours.
+          </p>
+
+          <div
+            id="formError"
+            style="
+              display: none;
+              background: #fff0f0;
+              border: 1px solid #fcc;
+              border-radius: 4px;
+              padding: 12px 16px;
+              margin-bottom: 16px;
+              font-size: 13px;
+              color: #c0392b;
+            "
+          ></div>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="fs-name">Full Name *</label>
+              <input
+                id="fs-name"
+                type="text"
+                name="name"
+                placeholder="Your name"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="fs-company">Company Name *</label>
+              <input
+                id="fs-company"
+                type="text"
+                name="company"
+                placeholder="Your company"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="fs-email">Email Address *</label>
+              <input
+                id="fs-email"
+                type="email"
+                name="email"
+                placeholder="you@company.com"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="fs-phone">Phone Number</label>
+              <input
+                id="fs-phone"
+                type="tel"
+                name="phone"
+                placeholder="+91 98765 43210"
+              />
+            </div>
+            <div class="form-group">
+              <label for="serviceSelect">Service Required</label>
+              <select id="serviceSelect" name="service">
+                <option value="">Select a service...</option>
+                <option>Data Center Facilities</option>
+                <option>Biometric Access Control</option>
+                <option>CCTV Surveillance</option>
+                <option>Copper Cabling (Cat6 / Cat6A)</option>
+                <option>High-Speed Fiber Optics</option>
+                <option>Facility Security Integration</option>
+                <option>Multiple Services</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="fs-facility">Facility Type</label>
+              <select id="fs-facility" name="facility_type">
+                <option value="">Select type...</option>
+                <option>Corporate Office</option>
+                <option>Manufacturing Unit</option>
+                <option>Data Center</option>
+                <option>Campus / Institution</option>
+                <option>Warehouse</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="form-group full">
+              <label for="fs-location">Project Location</label>
+              <input
+                id="fs-location"
+                type="text"
+                name="location"
+                placeholder="City, State"
+              />
+            </div>
+            <div class="form-group full">
+              <label for="fs-details">Project Details</label>
+              <textarea
+                id="fs-details"
+                name="details"
+                placeholder="Describe your requirements, scale, timeline, or any specific needs..."
+              ></textarea>
+            </div>
+          </div>
+
+          <button id="submitBtn" class="form-submit" onclick="submitForm()">
+            Submit Request &rarr;
+          </button>
+        </div>
+
+        <!-- SUCCESS STATE -->
+        <div id="formSuccess" style="display: none">
+          <div style="text-align: center; padding: 16px 0 32px">
+            <!-- Icon circle -->
+            <div
+              style="
+                width: 72px;
+                height: 72px;
+                border-radius: 50%;
+                background: #f0edf8;
+                border: 1px solid rgba(123, 45, 139, 0.2);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin: 0 auto 28px;
+                font-size: 30px;
+                color: #7b2d8b;
+              "
+            >
+              &#10003;
+            </div>
+
+            <h2
+              style="
+                font-family: &quot;Syne&quot;, sans-serif;
+                font-size: 24px;
+                font-weight: 800;
+                color: var(--ink);
+                margin-bottom: 10px;
+              "
+            >
+              Enquiry Received
+            </h2>
+            <p
+              style="
+                font-size: 15px;
+                color: var(--text-muted);
+                line-height: 1.7;
+                margin-bottom: 32px;
+                max-width: 380px;
+                margin-left: auto;
+                margin-right: auto;
+              "
+            >
+              Thank you for reaching out. Our team will review your requirements
+              and get back to you shortly.
+            </p>
+
+            <!-- Info row -->
+            <div
+              style="
+                display: flex;
+                align-items: center;
+                gap: 14px;
+                background: var(--mist);
+                border: 1px solid var(--border);
+                border-radius: 6px;
+                padding: 16px 20px;
+                margin-bottom: 28px;
+                text-align: left;
+              "
+            >
+              <div
+                style="
+                  width: 36px;
+                  height: 36px;
+                  flex-shrink: 0;
+                  background: rgba(123, 45, 139, 0.1);
+                  border-radius: 50%;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  font-size: 16px;
+                "
+              >
+                &#128337;
+              </div>
+              <div>
+                <p
+                  style="
+                    font-size: 13px;
+                    font-weight: 600;
+                    color: var(--ink);
+                    margin-bottom: 2px;
+                  "
+                >
+                  Response within 24 hours
+                </p>
+                <p style="font-size: 12px; color: var(--text-muted)">
+                  On business days · Mon – Sat
+                </p>
+              </div>
+            </div>
+
+            <!-- Primary button -->
+            <button
+              onclick="closeModal()"
+              style="
+                width: 100%;
+                background: var(--electric);
+                color: #fff;
+                border: none;
+                border-radius: 4px;
+                padding: 14px;
+                font-family: &quot;Syne&quot;, sans-serif;
+                font-size: 15px;
+                font-weight: 700;
+                cursor: pointer;
+                letter-spacing: 0.03em;
+                margin-bottom: 12px;
+                transition: background 0.2s;
+              "
+              onmouseover="this.style.background = '#5b2d8e'"
+              onmouseout="this.style.background = '#7b2d8b'"
+            >
+              Done
+            </button>
+
+            <!-- Secondary link -->
+            <a
+              href="mailto:rg@spltecsol.com"
+              style="
+                display: block;
+                width: 100%;
+                padding: 13px;
+                border: 1px solid var(--border);
+                border-radius: 4px;
+                font-size: 14px;
+                color: var(--text-secondary);
+                text-decoration: none;
+                box-sizing: border-box;
+                transition:
+                  border-color 0.2s,
+                  color 0.2s;
+              "
+              onmouseover="
+                this.style.borderColor = 'rgba(123,45,139,0.4)';
+                this.style.color = '#7b2d8b';
+              "
+              onmouseout="
+                this.style.borderColor = 'var(--border)';
+                this.style.color = 'var(--text-secondary)';
+              "
+            >
+              &#9993;&nbsp; Email us directly at rg@spltecsol.com
+            </a>
+
+            <!-- Footer note -->
+            <p
+              style="
+                margin-top: 24px;
+                font-size: 12px;
+                color: var(--text-muted);
+                padding-top: 20px;
+                border-top: 1px solid var(--border);
+              "
+            >
+              Splendid Technologies &nbsp;&middot;&nbsp; Hyderabad, India
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- HEADER -->
+    <header>
+      <div class="nav-inner">
+        <div class="logo-wrap">
+          <img src="images/splendid logo.png" alt="Splendid Technologies" />
+          <p class="logo-tagline">— Partnering Your Success</p>
+        </div>
+        <nav>
+          <ul>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#industries">Industries</a></li>
+            <li><a href="#clientele">Clientele</a></li>
+            <li><a href="mailto:rg@spltecsol.com">Contact</a></li>
+          </ul>
+        </nav>
+        <button class="nav-cta" onclick="openModal()">
+          Get a Quote &rarr;
+        </button>
+      </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-bg"></div>
+      <div class="hero-grid"></div>
+      <div class="hero-glow"></div>
+      <div class="hero-glow2"></div>
+
+      <div class="hero-content">
+        <div>
+          <div class="hero-eyebrow">Enterprise-Grade Infrastructure</div>
+          <h1>
+            Built for <em>Reliability.</em><br />Engineered for
+            <em>Security.</em>
+          </h1>
+          <p class="hero-desc">
+            We design and deploy mission-critical IT infrastructure and physical
+            security systems for offices, factories, campuses, and data centers
+            across India.
+          </p>
+          <div class="hero-actions">
+            <button class="btn-primary" onclick="openModal()">
+              Get a Free Quote
+            </button>
+            <a href="#services" class="btn-outline">Explore Services</a>
+          </div>
+          <div class="hero-stats">
+            <div class="stat-item">
+              <h4>500<span>+</span></h4>
+              <p>Projects Completed</p>
+            </div>
+            <div class="stat-item">
+              <h4>12<span>+</span></h4>
+              <p>Years Experience</p>
+            </div>
+            <div class="stat-item">
+              <h4>99<span>.9%</span></h4>
+              <p>Uptime Delivered</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <img
+            class="hero-img-main"
+            src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=900&q=80"
+            alt="Data Center Infrastructure"
+          />
+          <div class="hero-badge">
+            <div class="badge-icon">&#128274;</div>
+            <div class="badge-text">
+              <p>ISO-Aligned Installations</p>
+              <p>Certified Cabling & Security Systems</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TRUSTED STRIP -->
+    <div class="trusted-strip">
+      <div class="trusted-inner">
+        <span class="trusted-label">Trusted for</span>
+        <div class="trusted-divider"></div>
+        <div class="trusted-tags">
+          <span>Corporate Offices</span>
+          <span>Manufacturing Units</span>
+          <span>Campuses</span>
+          <span>Warehouses</span>
+          <span>Data Centers</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- SERVICES -->
+    <section class="section services-section" id="services">
+      <div class="wrap">
+        <div class="section-eyebrow">What We Do</div>
+        <h2 class="section-title reveal">
+          End-to-End Infrastructure<br />&amp; Security Solutions
+        </h2>
+        <p class="section-sub reveal">
+          From structured cabling to biometric access — every system we deploy
+          is engineered for long-term reliability and zero compromise on
+          performance.
+        </p>
+
+        <div class="services-grid reveal">
+          <div class="service-card">
+            <div class="service-icon">&#127970;</div>
+            <h3>Data Center Facilities</h3>
+            <p>
+              Complete server room builds engineered for performance, security,
+              and long-term reliability.
+            </p>
+            <ul class="service-bullets">
+              <li>Rack installation &amp; cable management</li>
+              <li>Power distribution layout &amp; UPS planning</li>
+              <li>Airflow &amp; cooling coordination</li>
+              <li>Biometric &amp; access control integration</li>
+              <li>Full handover documentation</li>
+            </ul>
+            <button
+              class="service-quote-btn"
+              onclick="openModal('Data Center Facilities')"
+            >
+              Request a Quote &rarr;
+            </button>
+          </div>
+
+          <div class="service-card">
+            <div class="service-icon">&#128272;</div>
+            <h3>Biometric Access Control</h3>
+            <p>
+              Fingerprint and multi-factor systems that secure restricted zones
+              with complete audit visibility.
+            </p>
+            <ul class="service-bullets">
+              <li>Fingerprint &amp; card-based access systems</li>
+              <li>Server room &amp; lab door controllers</li>
+              <li>Full audit logging &amp; reporting</li>
+              <li>Remote monitoring dashboard</li>
+              <li>Integration with existing CCTV</li>
+            </ul>
+            <button
+              class="service-quote-btn"
+              onclick="openModal('Biometric Access Control')"
+            >
+              Request a Quote &rarr;
+            </button>
+          </div>
+
+          <div class="service-card">
+            <div class="service-icon">&#128249;</div>
+            <h3>Industrial CCTV Surveillance</h3>
+            <p>
+              High-resolution IP camera systems built for factories, warehouses,
+              and large campuses.
+            </p>
+            <ul class="service-bullets">
+              <li>HD &amp; 4K IP camera installation</li>
+              <li>NVR / DVR setup &amp; configuration</li>
+              <li>Secure cloud &amp; local storage options</li>
+              <li>Real-time remote monitoring access</li>
+              <li>Night vision &amp; wide-angle coverage</li>
+            </ul>
+            <button
+              class="service-quote-btn"
+              onclick="openModal('CCTV Surveillance')"
+            >
+              Request a Quote &rarr;
+            </button>
+          </div>
+
+          <div class="service-card">
+            <div class="service-icon">&#128268;</div>
+            <h3>Copper Cabling (Cat6 / Cat6A)</h3>
+            <p>
+              Standards-compliant structured cabling with certified testing and
+              clean professional finishing.
+            </p>
+            <ul class="service-bullets">
+              <li>Cat6 &amp; Cat6A horizontal cabling</li>
+              <li>Patch panel termination &amp; labeling</li>
+              <li>Clean trunking &amp; cable management</li>
+              <li>Certified fluke testing on every port</li>
+              <li>As-built drawings &amp; documentation</li>
+            </ul>
+            <button
+              class="service-quote-btn"
+              onclick="openModal('Copper Cabling (Cat6 / Cat6A)')"
+            >
+              Request a Quote &rarr;
+            </button>
+          </div>
+
+          <div class="service-card">
+            <div class="service-icon">&#128161;</div>
+            <h3>High-Speed Fiber Optics</h3>
+            <p>
+              Single-mode and multi-mode fiber backbones for high-bandwidth
+              inter-building connectivity.
+            </p>
+            <ul class="service-bullets">
+              <li>Single-mode &amp; multi-mode fiber runs</li>
+              <li>Inter-building &amp; campus backbones</li>
+              <li>Fusion splicing &amp; termination</li>
+              <li>OTDR-certified testing on all links</li>
+              <li>Underground &amp; aerial routing</li>
+            </ul>
+            <button
+              class="service-quote-btn"
+              onclick="openModal('High-Speed Fiber Optics')"
+            >
+              Request a Quote &rarr;
+            </button>
+          </div>
+
+          <div class="service-card">
+            <div class="service-icon">&#128737;</div>
+            <h3>Facility Security Integration</h3>
+            <p>
+              One unified system combining CCTV, access control, and network
+              into a single managed ecosystem.
+            </p>
+            <ul class="service-bullets">
+              <li>CCTV + biometric + network combined</li>
+              <li>Centralized management dashboard</li>
+              <li>Alarm &amp; alert system integration</li>
+              <li>Scalable design for future expansion</li>
+              <li>Ongoing support &amp; maintenance SLA</li>
+            </ul>
+            <button
+              class="service-quote-btn"
+              onclick="openModal('Facility Security Integration')"
+            >
+              Request a Quote &rarr;
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW WE WORK -->
+    <section class="section process-section">
+      <div class="wrap">
+        <div class="section-eyebrow">Our Process</div>
+        <h2 class="section-title reveal">How We Deliver Every Project</h2>
+        <p class="section-sub reveal">
+          A structured, repeatable approach that eliminates surprises — from
+          first assessment to final handover.
+        </p>
+
+        <div class="process-grid reveal">
+          <div class="process-step">
+            <div class="step-num">01</div>
+            <h4>Assessment</h4>
+            <p>Site survey, requirement gathering, and risk identification.</p>
+          </div>
+          <div class="process-step">
+            <div class="step-num">02</div>
+            <h4>Design</h4>
+            <p>Detailed schematic, BOM, and compliance-mapped layout plan.</p>
+          </div>
+          <div class="process-step">
+            <div class="step-num">03</div>
+            <h4>Implementation</h4>
+            <p>
+              Precision installation by certified technicians, zero shortcuts.
+            </p>
+          </div>
+          <div class="process-step">
+            <div class="step-num">04</div>
+            <h4>Testing</h4>
+            <p>
+              Certified cable testing, commissioning, and performance
+              validation.
+            </p>
+          </div>
+          <div class="process-step">
+            <div class="step-num">05</div>
+            <h4>Handover</h4>
+            <p>
+              Full documentation, labeling guide, and structured support SLA.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="section about-section" id="about">
+      <div class="wrap">
+        <div class="about-grid">
+          <div class="about-imgs reveal">
+            <img
+              class="about-img1"
+              src="https://images.unsplash.com/photo-1551703599-6b3e8379aa8c?auto=format&fit=crop&w=800&q=80"
+              alt="Server Room"
+            />
+            <img
+              class="about-img2"
+              src="https://images.unsplash.com/photo-1614064641938-3bbee52942c7?auto=format&fit=crop&w=600&q=80"
+              alt="Network Cabling"
+            />
+            <div class="about-card">
+              <h3>12+</h3>
+              <p>Years in Infrastructure</p>
+            </div>
+          </div>
+
+          <div class="reveal">
+            <div class="section-eyebrow">Who We Are</div>
+            <h2 class="section-title">
+              Specialized Expertise.<br />Delivered with Precision.
+            </h2>
+            <p class="section-sub">
+              Splendid Technologies is an India-based IT services company
+              focused on enterprise infrastructure and physical security. We
+              work with IT heads, facility managers, and operations teams who
+              need systems that simply never fail.
+            </p>
+            <ul class="value-list">
+              <li>
+                <span class="check-icon">&#10003;</span>
+                <span
+                  >Clean, standards-compliant installations with thorough cable
+                  management and labeling on every project.</span
+                >
+              </li>
+              <li>
+                <span class="check-icon">&#10003;</span>
+                <span
+                  >Certified testing and detailed documentation provided at
+                  structured handover for every deployment.</span
+                >
+              </li>
+              <li>
+                <span class="check-icon">&#10003;</span>
+                <span
+                  >End-to-end accountability: one team from initial survey to
+                  post-installation support.</span
+                >
+              </li>
+              <li>
+                <span class="check-icon">&#10003;</span>
+                <span
+                  >Scalable designs that accommodate future expansion without
+                  rework or added cost.</span
+                >
+              </li>
+            </ul>
+            <button class="btn-primary" onclick="openModal()">
+              Talk to Our Team &rarr;
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- INDUSTRIES -->
+    <section class="section industries-section" id="industries">
+      <div class="wrap">
+        <div class="section-eyebrow">Where We Operate</div>
+        <h2 class="section-title reveal">Industries We Serve</h2>
+        <p class="section-sub reveal">
+          Our infrastructure expertise spans diverse environments — each
+          demanding its own level of precision and reliability.
+        </p>
+
+        <div class="industries-grid reveal">
+          <div class="industry-card">
+            <span class="industry-tag">Corporate</span>
+            <img
+              src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=600&q=80"
+              alt="Corporate Office"
+            />
+            <div class="industry-label">
+              <h3>Corporate Offices</h3>
+              <p>Reliable LAN, secure access, and surveillance</p>
+            </div>
+          </div>
+          <div class="industry-card">
+            <span class="industry-tag">Industrial</span>
+            <img
+              src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600&q=80"
+              alt="Manufacturing"
+            />
+            <div class="industry-label">
+              <h3>Manufacturing Units</h3>
+              <p>Industrial CCTV and hardened network cabling</p>
+            </div>
+          </div>
+          <div class="industry-card">
+            <span class="industry-tag">Data Center</span>
+            <img
+              src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=600&q=80"
+              alt="Data Center"
+            />
+            <div class="industry-label">
+              <h3>Data Centers</h3>
+              <p>Full rack buildouts and structured cabling</p>
+            </div>
+          </div>
+          <div class="industry-card">
+            <span class="industry-tag">Campus</span>
+            <img
+              src="https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=600&q=80"
+              alt="Campus"
+            />
+            <div class="industry-label">
+              <h3>Campuses &amp; Institutions</h3>
+              <p>Fiber backbones and access control at scale</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PILLARS -->
+    <section class="section pillars-section">
+      <div class="wrap">
+        <div class="section-eyebrow">Our Principles</div>
+        <h2 class="section-title reveal">Built on Four Pillars</h2>
+        <p class="section-sub reveal">
+          Every project we touch reflects these core commitments —
+          non-negotiable standards that define how we work.
+        </p>
+
+        <div class="pillars-grid reveal">
+          <div class="pillar-block">
+            <div class="pillar-num">01</div>
+            <h3>Experience</h3>
+            <p>
+              Hands-on expertise across hundreds of infrastructure,
+              surveillance, and secure facility deployments across India.
+            </p>
+          </div>
+          <div class="pillar-block">
+            <div class="pillar-num">02</div>
+            <h3>Quality</h3>
+            <p>
+              Standards-compliant installations using certified components,
+              tested equipment, and industry-best practices on every single job.
+            </p>
+          </div>
+          <div class="pillar-block">
+            <div class="pillar-num">03</div>
+            <h3>Reliability</h3>
+            <p>
+              Infrastructure engineered for consistent uptime, stable
+              performance, and resilience — even under demanding operational
+              conditions.
+            </p>
+          </div>
+          <div class="pillar-block">
+            <div class="pillar-num">04</div>
+            <h3>Precision</h3>
+            <p>
+              Clean routing, accurate labeling, thorough testing, and complete
+              documentation delivered at every project handover without
+              exception.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CLIENTELE -->
+    <section class="section clientele-section" id="clientele">
+      <div class="wrap">
+        <div class="section-eyebrow">Who We've Worked With</div>
+        <h2 class="section-title reveal">Trusted by Leading Organisations</h2>
+        <p class="section-sub reveal">
+          From global Fortune 500 companies to fast-growing Indian enterprises —
+          our infrastructure powers businesses that can't afford downtime.
+        </p>
+
+        <div class="clients-count-bar reveal">
+          <div class="count-item">
+            <h4>10+</h4>
+            <p>Enterprise Clients</p>
+          </div>
+          <div class="count-item">
+            <h4>500+</h4>
+            <p>Projects Delivered</p>
+          </div>
+          <div class="count-item">
+            <h4>12+</h4>
+            <p>Years Trusted</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="marquee-wrapper">
+        <div class="marquee-track">
+          <div class="client-logo-item">
+            <img src="images/abco.png" alt="ABCO India" />
+          </div>
+          <div class="client-logo-item">
+            <img src="images/icl.png" alt="ICL" />
+          </div>
+          <div class="client-logo-item">
+            <img
+              src="images/Johnson_and_Johnson_Logo.svg"
+              alt="Johnson &amp; Johnson"
+            />
+          </div>
+          <div class="client-logo-item">
+            <img src="images/neotis.avif" alt="Neotis" />
+          </div>
+          <div class="client-logo-item">
+            <img src="images/P&G.png" alt="P&amp;G" />
+          </div>
+          <div class="client-logo-item">
+            <img src="images/siemon.png" alt="Siemon" />
+          </div>
+          <div class="client-logo-item">
+            <img src="images/teleflex.jpg" alt="Teleflex" />
+          </div>
+          <div class="client-logo-item">
+            <img src="images/uhg.png" alt="UnitedHealth Group" />
+          </div>
+          <div class="client-logo-item">
+            <img src="images/usha.png" alt="Usha" />
+          </div>
+          <div class="client-logo-item">
+            <img src="images/ust.png" alt="UST" />
+          </div>
+          <div class="client-logo-item">
+            <img src="images/abco.png" alt="ABCO India" />
+          </div>
+          <div class="client-logo-item">
+            <img src="images/icl.png" alt="ICL" />
+          </div>
+          <div class="client-logo-item">
+            <img
+              src="images/Johnson_and_Johnson_Logo.svg"
+              alt="Johnson &amp; Johnson"
+            />
+          </div>
+          <div class="client-logo-item">
+            <img src="images/neotis.avif" alt="Neotis" />
+          </div>
+          <div class="client-logo-item">
+            <img src="images/P&G.png" alt="P&amp;G" />
+          </div>
+          <div class="client-logo-item">
+            <img src="images/siemon.png" alt="Siemon" />
+          </div>
+          <div class="client-logo-item">
+            <img src="images/teleflex.jpg" alt="Teleflex" />
+          </div>
+          <div class="client-logo-item">
+            <img src="images/uhg.png" alt="UnitedHealth Group" />
+          </div>
+          <div class="client-logo-item">
+            <img src="images/usha.png" alt="Usha" />
+          </div>
+          <div class="client-logo-item">
+            <img src="images/ust.png" alt="UST" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section cta-section">
+      <div class="wrap">
+        <div class="cta-inner">
+          <h2>Ready to Build Infrastructure That Never Fails?</h2>
+          <p>
+            Whether you're building a new facility or upgrading legacy systems,
+            our team delivers performance-driven solutions on time and to
+            specification.
+          </p>
+          <div class="cta-actions">
+            <button class="btn-white" onclick="openModal()">
+              Get a Free Quote
+            </button>
+            <a href="mailto:rg@spltecsol.com" class="btn-ghost"
+              >Email Us Directly</a
+            >
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer id="contact">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="images/splendid logo.png" alt="Splendid Technologies" />
+          <p class="footer-logo-tagline">— Partnering Your Success</p>
+          <p class="footer-desc">
+            India-based enterprise IT infrastructure and physical security
+            specialists. Serving corporate offices, factories, campuses, and
+            data centers.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Services</h4>
+          <ul>
+            <li><a href="#services">Data Center Facilities</a></li>
+            <li><a href="#services">Biometric Access Control</a></li>
+            <li><a href="#services">CCTV Surveillance</a></li>
+            <li><a href="#services">Copper Cabling</a></li>
+            <li><a href="#services">Fiber Optics</a></li>
+            <li><a href="#services">Security Integration</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#industries">Industries</a></li>
+            <li><a href="#clientele">Clientele</a></li>
+            <li><a href="mailto:rg@spltecsol.com">Contact</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col footer-contact">
+          <h4>Contact</h4>
+          <p>
+            <a href="mailto:rg@spltecsol.com">rg@spltecsol.com</a><br /><br />
+            <a href="tel:+919885721020">+91 9885721020</a><br /><br />
+            Hyderabad, India
+          </p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 Splendid Technologies. All Rights Reserved.</p>
+        <div class="footer-certs">
+          <span class="cert-pill">ISO 9001</span>
+          <span class="cert-pill">Cat6A Certified</span>
+          <span class="cert-pill">OTDR Tested</span>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      const reveals = document.querySelectorAll(".reveal");
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              const siblings =
+                e.target.parentElement.querySelectorAll(".reveal");
+              let delay = 0;
+              siblings.forEach((s, idx) => {
+                if (s === e.target) delay = idx * 60;
+              });
+              setTimeout(() => e.target.classList.add("visible"), delay);
+              io.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.1 },
+      );
+      reveals.forEach((r) => io.observe(r));
+
+      function openModal(service) {
+        document.getElementById("quoteModal").classList.add("open");
+        document.body.style.overflow = "hidden";
+        if (service) {
+          document.getElementById("serviceSelect").value = service;
+        }
+      }
+
+      function closeModal() {
+        document.getElementById("quoteModal").classList.remove("open");
+        document.body.style.overflow = "";
+        // Reset form for next use
+        setTimeout(function () {
+          document.getElementById("formContent").style.display = "block";
+          document.getElementById("formSuccess").style.display = "none";
+          document.getElementById("submitBtn").textContent = "Submit Request →";
+          document.getElementById("submitBtn").disabled = false;
+          document.getElementById("formError").style.display = "none";
+          [
+            "fs-name",
+            "fs-company",
+            "fs-email",
+            "fs-phone",
+            "fs-location",
+            "fs-details",
+          ].forEach(function (id) {
+            var el = document.getElementById(id);
+            if (el) el.value = "";
+          });
+          document.getElementById("serviceSelect").value = "";
+          document.getElementById("fs-facility").value = "";
+        }, 300);
+      }
+
+      document
+        .getElementById("quoteModal")
+        .addEventListener("click", function (e) {
+          if (e.target === this) closeModal();
+        });
+
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") closeModal();
+      });
+
+      async function submitForm() {
+        var name = document.getElementById("fs-name").value.trim();
+        var email = document.getElementById("fs-email").value.trim();
+        var company = document.getElementById("fs-company").value.trim();
+        var errorBox = document.getElementById("formError");
+
+        errorBox.style.display = "none";
+
+        if (!name || !email || !company) {
+          errorBox.textContent =
+            "Please fill in your name, company, and email address.";
+          errorBox.style.display = "block";
+          return;
+        }
+
+        var btn = document.getElementById("submitBtn");
+        btn.textContent = "Sending…";
+        btn.disabled = true;
+
+        var data = {
+          name: name,
+          company: company,
+          email: email,
+          phone: document.getElementById("fs-phone").value,
+          service: document.getElementById("serviceSelect").value,
+          facility_type: document.getElementById("fs-facility").value,
+          location: document.getElementById("fs-location").value,
+          details: document.getElementById("fs-details").value,
+        };
+
+        try {
+          var res = await fetch("https://formspree.io/f/xwvzqzzo", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+            },
+            body: JSON.stringify(data),
+          });
+
+          if (res.ok) {
+            document.getElementById("formContent").style.display = "none";
+            document.getElementById("formSuccess").style.display = "block";
+          } else {
+            var json = await res.json();
+            var msg = json.errors
+              ? json.errors
+                  .map(function (e) {
+                    return e.message;
+                  })
+                  .join(", ")
+              : "Submission failed.";
+            errorBox.textContent =
+              msg + " Please try again or email rg@spltecsol.com directly.";
+            errorBox.style.display = "block";
+            btn.textContent = "Submit Request →";
+            btn.disabled = false;
+          }
+        } catch (err) {
+          errorBox.textContent =
+            "Network error. Please check your connection or email rg@spltecsol.com directly.";
+          errorBox.style.display = "block";
+          btn.textContent = "Submit Request →";
+          btn.disabled = false;
+        }
+      }
+    </script>
+  </body>
+</html>
